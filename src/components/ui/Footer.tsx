@@ -11,8 +11,8 @@ const Footer = () => {
           <div className="col-lg-3 col-md-6">
             <h4 className="text-white mb-4">Get In Touch</h4>
             <p className="mb-2"><i className="fa fa-map-marker-alt me-3"></i>Vashi, Navi Mumbai, Maharashtra, India</p>
-            <p className="mb-2"><i className="fa fa-phone-alt me-3"></i>+917045360444</p>
-            <p className="mb-2"><i className="fa fa-envelope me-3"></i>info@abwcurious.com</p>
+            <p className="mb-2"><i className="fa fa-phone-alt me-3"></i>+91 8108915402</p>
+            <p className="mb-2"><i className="fa fa-envelope me-3"></i>info@abwcurious.com, sales@abwcurious.com</p>
             <div className="d-flex pt-2">
               <a className="btn btn-square btn-outline-light me-1" href="#"><i className="fab fa-twitter"></i></a>
               <a className="btn btn-square btn-outline-light me-1" href="#"><i className="fab fa-facebook-f"></i></a>
