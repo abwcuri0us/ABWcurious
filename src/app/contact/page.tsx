@@ -23,11 +23,11 @@ export default function ContactPage() {
 
             <div className="d-flex align-items-start gap-3 mb-3">
               <div className="flex-shrink-0 bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center" style={{ width: 48, height: 48 }}>📧</div>
-              <div><h6 className="mb-0">Email</h6><a href="mailto:info@abwcurious.com">info@abwcurious.com</a></div>
+              <div><h6 className="mb-0">Email</h6><a href="mailto:info@abwcurious.com">info@abwcurious.com, sales@abwcurious.com</a></div>
             </div>
             <div className="d-flex align-items-start gap-3 mb-3">
               <div className="flex-shrink-0 bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center" style={{ width: 48, height: 48 }}>📞</div>
-              <div><h6 className="mb-0">Phone</h6><a href="tel:+01234567890">+917045360444</a></div>
+              <div><h6 className="mb-0">Phone</h6><a href="tel:+01234567890">+91 8108915402</a></div>
             </div>
             <div className="d-flex align-items-start gap-3 mb-3">
               <div className="flex-shrink-0 bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center" style={{ width: 48, height: 48 }}>📍</div>
