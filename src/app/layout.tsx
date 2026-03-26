@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: "Join ABW Curious Learning for online learning, professional training, and career development opportunities. Start your journey to a better future today.",
   keywords: "online learning, professional training, career development, job opportunities, ABW Curious",
 };
-
+<meta name="google-adsense-account" content="ca-pub-4170752809389671">
 export default function RootLayout({
   children,
 }: Readonly<{
