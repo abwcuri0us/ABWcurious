@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model DashboardUser {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  email       String   @unique
+  password    String
+  role        String   @default("user") // "user" or "admin"
+  designation String   @default("Client Node")
+  contact     String   @default("Unknown")
+  age         String   @default("0")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PrivateMessage {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  sender    String
+  text      String
+  time      String
+  timestamp Float
+  userId    String   // Target Node Owner (Links Chat internally)
+  createdAt DateTime @default(now())
+}
+
+model FormDrop {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  type        String
+  title       String
+  details     String
+  submittedBy String
+  date        String
+  createdAt   DateTime @default(now())
+}
+
+model AdminUser {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactSubmission {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model JoinRequest {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  dob       String
+  location  String
+  createdAt DateTime @default(now())
+}
+
+model Blog {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String   
+  author    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Task {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String?
+  completed   Boolean   @default(false)
+  dueDate     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Note {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String
+  color     String?  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Reminder {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  message   String
+  time      DateTime
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
