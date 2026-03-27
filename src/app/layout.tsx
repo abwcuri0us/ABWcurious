@@ -7,6 +7,7 @@ import LoaderWrapper from "@/components/ui/LoaderWrapper";
 import SpaceBackground from "@/components/ui/SpaceBackground";
 import Chatbot from "@/components/ui/Chatbot";
 import Script from "next/script";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +27,7 @@ export default function RootLayout({
       <head>
         {/* ✅ Google AdSense */}
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4170752809389671"
-     crossorigin="anonymous"/>
+     crossOrigin="anonymous"/>
 
         <link rel="icon" type="image/png" href="/logo.png" />
 
@@ -97,6 +98,7 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
         <Script src="/js/main.js" strategy="afterInteractive" />
+        <SpeedInsights />
       </body>
     </html>
   );
