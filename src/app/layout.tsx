@@ -24,10 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* ✅ Google AdSense */}
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4170752809389671"
-     crossorigin="anonymous"/>
-
+        
         <link rel="icon" type="image/png" href="/logo.png" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
