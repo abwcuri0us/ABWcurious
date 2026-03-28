@@ -12,7 +12,7 @@ export default function Footer() {
             <h4 className="text-white mb-4">Get In Touch</h4>
             <p className="mb-2"><i className="fa fa-map-marker-alt me-3"></i>Vashi, Navi Mumbai, Maharashtra, India</p>
             <p className="mb-2"><i className="fa fa-phone-alt me-3"></i>+91 8108915402</p>
-            <p className="mb-2"><i className="fa fa-envelope me-3"></i>abwcurious.pvtltd@gmail.com</p>
+            <p className="mb-2"><i className="fa fa-envelope me-3"></i>info@abwcurious.com</p>
             <div className="d-flex pt-2">
               <a className="btn btn-square btn-outline-light me-1" href="https://github.com/abwcuri0us" target="_blank"><i className="fab fa-github"></i></a>
               <a className="btn btn-square btn-outline-light me-1" href="https://www.youtube.com/@ABWcurious" target="_blank"><i className="fab fa-youtube"></i></a>
