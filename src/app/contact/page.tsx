@@ -23,7 +23,7 @@ export default function ContactPage() {
 
             <div className="d-flex align-items-start gap-4 mb-4">
               <div className="flex-shrink-0 rounded-circle d-flex align-items-center justify-content-center" style={{ width: 64, height: 64, background: 'rgba(0,242,254,0.1)', border: '1px solid rgba(0,242,254,0.2)' }}><span className="fs-3">📧</span></div>
-              <div><h5 className="mb-2 text-white">Email</h5><a href="mailto:abwcurious.pvtltd@gmail.com" className="text-white-50">abwcurious.pvtltd@gmail.com</a></div>
+              <div><h5 className="mb-2 text-white">Email</h5><a href="mailto:abwcurious.pvtltd@gmail.com" className="text-white-50">Info@abwcurious.com</a></div>
             </div>
             <div className="d-flex align-items-start gap-3 mb-3">
               <div className="flex-shrink-0 rounded-circle d-flex align-items-center justify-content-center" style={{ width: 64, height: 64, background: 'rgba(0,242,254,0.1)', border: '1px solid rgba(0,242,254,0.2)' }}><span className="fs-3">📞</span></div>
