@@ -120,9 +120,9 @@ export const metadata: Metadata = {
 ───────────────────────────────────────────── */
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" className={inter.variable}>
       <head>
@@ -228,6 +228,7 @@ export default function RootLayout({
           }}
         />
       </head>
+
 
       <body className={`${inter.className} theme-technology`}>
         <SpaceBackground />

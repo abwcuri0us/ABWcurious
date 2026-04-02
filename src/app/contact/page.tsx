@@ -39,6 +39,7 @@ export default function ContactPage() {
             <h2 className="display-6 text-white mb-2 fw-bold">Let&apos;s Talk</h2>
             <p className="text-white-50 mb-4">Ready to start your learning journey or have questions about our services? Our team is here to help.</p>
 
+<<<<<<< HEAD
             {[
               { icon: '📧', label: 'Email Us', value: 'info@abwcurious.com', href: 'mailto:info@abwcurious.com' },
               { icon: '📞', label: 'Call Us', value: '+91 8108915402', href: 'tel:+918108915402' },
@@ -77,6 +78,19 @@ export default function ContactPage() {
                   </a>
                 ))}
               </div>
+=======
+            <div className="d-flex align-items-start gap-4 mb-4">
+              <div className="flex-shrink-0 rounded-circle d-flex align-items-center justify-content-center" style={{ width: 64, height: 64, background: 'rgba(0,242,254,0.1)', border: '1px solid rgba(0,242,254,0.2)' }}><span className="fs-3">📧</span></div>
+              <div><h5 className="mb-2 text-white">Email</h5><a href="mailto:abwcurious.pvtltd@gmail.com" className="text-white-50">Info@abwcurious.com</a></div>
+            </div>
+            <div className="d-flex align-items-start gap-3 mb-3">
+              <div className="flex-shrink-0 rounded-circle d-flex align-items-center justify-content-center" style={{ width: 64, height: 64, background: 'rgba(0,242,254,0.1)', border: '1px solid rgba(0,242,254,0.2)' }}><span className="fs-3">📞</span></div>
+              <div><h5 className="mb-2 text-white">Phone</h5><a href="tel:+01234567890" className="text-white-50">+91 8108915402</a></div>
+            </div>
+            <div className="d-flex align-items-start gap-3 mb-3">
+              <div className="flex-shrink-0 rounded-circle d-flex align-items-center justify-content-center" style={{ width: 64, height: 64, background: 'rgba(0,242,254,0.1)', border: '1px solid rgba(0,242,254,0.2)' }}><span className="fs-3">📍</span></div>
+              <div><h5 className="mb-2 text-white">Office</h5><span className="text-white-50">Vashi, Navi Mumbai, Maharashtra, India</span></div>
+>>>>>>> 68dd46a39e57e2c6a1ad645a18efe3bac4cc073e
             </div>
           </div>
 
