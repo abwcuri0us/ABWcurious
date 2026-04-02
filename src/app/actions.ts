@@ -1,6 +1,7 @@
 'use server';
 
 import { PrismaClient } from '@prisma/client';
+import { revalidatePath } from 'next/cache';
 
 // Extremely critical to avoid multiple connections in Dev mode
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
@@ -112,4 +113,91 @@ export async function getFormDrops() {
 export async function deleteFormDrop(id: string) {
   await prisma.formDrop.delete({ where: { id } });
   return true;
+}
+
+// ── Contact & Feedback Actions ──────────────────────────────────────────────
+
+export async function submitContactQuery(data: { name: string; email: string; subject: string; message: string }) {
+  await prisma.contactSubmission.create({ data: { ...data, status: 'new' } });
+  return { success: true };
+}
+
+export async function getContactSubmissions() {
+  return await prisma.contactSubmission.findMany({ orderBy: { createdAt: 'desc' } });
+}
+
+export async function updateContactStatus(id: string, status: string) {
+  await prisma.contactSubmission.update({ where: { id }, data: { status } });
+  return true;
+}
+
+export async function deleteContactSubmission(id: string) {
+  await prisma.contactSubmission.delete({ where: { id } });
+  return true;
+}
+
+export async function submitFeedback(name: string, email: string, rating: number, comment: string) {
+  await prisma.feedback.create({ data: { name, email, rating, comment } });
+  return { success: true };
+}
+
+export async function getFeedbacks() {
+  return await prisma.feedback.findMany({ orderBy: { createdAt: 'desc' } });
+}
+
+export async function deleteFeedback(id: string) {
+  await prisma.feedback.delete({ where: { id } });
+  return true;
+}
+
+// ---------------------------------------------------------------------------
+// ORDER MANAGEMENT & PAYMENT LOGIC (Admin & Checkout)
+// ---------------------------------------------------------------------------
+
+export async function submitOrder(data: {
+  customerName: string;
+  customerEmail: string;
+  planName: string;
+  serviceCategory: string;
+  amount: string;
+  upiUtrString: string;
+}) {
+  try {
+    const newOrder = await prisma.order.create({ data });
+    revalidatePath('/dashboard');
+    return { success: true, order: newOrder };
+  } catch (err: any) {
+    return { success: false, error: err.message };
+  }
+}
+
+export async function getOrders() {
+  try {
+    return await prisma.order.findMany({ orderBy: { createdAt: 'desc' } });
+  } catch (err) {
+    return [];
+  }
+}
+
+export async function verifyOrder(id: string, action: 'verified' | 'rejected') {
+  try {
+    await prisma.order.update({
+      where: { id },
+      data: { status: action }
+    });
+    revalidatePath('/dashboard');
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: err.message };
+  }
+}
+
+export async function deleteOrder(id: string) {
+  try {
+    await prisma.order.delete({ where: { id } });
+    revalidatePath('/dashboard');
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: err.message };
+  }
 }

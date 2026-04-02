@@ -10,9 +10,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const Hero = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => setIsLoaded(true), []);
-
   const heroSlides = [
     {
       id: 1,
@@ -20,7 +17,7 @@ const Hero = () => {
       subtitle: "Online learning, Training & Job",
       description: "Join us for your better future",
       primaryButton: { text: "Read More", href: "#" },
-      secondaryButton: { text: "Join Now", href: "/join-now" },
+      secondaryButton: { text: "Sign Up", href: "/login?mode=join" },
       theme: 'holographic-planet'
     },
     {
@@ -29,12 +26,10 @@ const Hero = () => {
       subtitle: "Skill Enhancement & Growth",
       description: "Transform your career with expert guidance",
       primaryButton: { text: "Learn More", href: "/about" },
-      secondaryButton: { text: "Get Started", href: "/join-now" },
+      secondaryButton: { text: "Sign Up", href: "/login?mode=join" },
       theme: 'holographic-ship'
     }
   ];
-
-  if (!isLoaded) return null;
 
   return (
     <div className="hero-section position-relative" style={{ minHeight: '100vh', background: 'transparent' }}>

@@ -124,7 +124,7 @@ export default function AuthPage() {
           </form>
 
           <p className="text-white text-center mt-5 mb-0 fw-medium">
-            Don't have an account? <span className="text-primary fw-bold cursor-pointer hover-text-white transition-colors ms-1 text-decoration-underline" onClick={() => setIsFlipped(true)}>Join Now</span>
+            Don't have an account? <span className="text-primary fw-bold cursor-pointer hover-text-white transition-colors ms-1 text-decoration-underline" onClick={() => setIsFlipped(true)}>Sign Up</span>
           </p>
         </div>
 

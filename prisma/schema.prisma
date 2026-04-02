@@ -54,7 +54,29 @@ model ContactSubmission {
   email     String
   subject   String
   message   String
+  status    String   @default("new") // "new", "read", "resolved"
   createdAt DateTime @default(now())
+}
+
+model Feedback {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String   @default("")
+  rating    Int      // 1-5 stars
+  comment   String
+  createdAt DateTime @default(now())
+}
+
+model Order {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  customerName    String
+  customerEmail   String
+  planName        String
+  serviceCategory String
+  amount          String
+  upiUtrString    String
+  status          String   @default("pending") // pending, verified, rejected
+  createdAt       DateTime @default(now())
 }
 
 model JoinRequest {

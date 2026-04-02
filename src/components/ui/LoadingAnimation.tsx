@@ -1,163 +1,67 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-
-interface LoadingAnimationProps {
-  onComplete: () => void;
-}
-
-export default function LoadingAnimation({ onComplete }: LoadingAnimationProps) {
-  const [progress, setProgress] = useState(0);
-  const [isComplete, setIsComplete] = useState(false);
-  const [stars, setStars] = useState<{ id: number; size: number; top: string; left: string; duration: number }[]>([]);
-
-  useEffect(() => {
-    document.body.classList.add('loader-active');
-    
-    // Generate random stars for the background
-    const newStars = Array.from({ length: 80 }).map((_, i) => ({
-      id: i,
-      size: Math.random() * 2 + 1,
-      top: `${Math.random() * 100}%`,
-      left: `${Math.random() * 100}%`,
-      duration: Math.random() * 3 + 2,
-    }));
-    setStars(newStars);
-
-    return () => document.body.classList.remove('loader-active');
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setIsComplete(true);
-            setTimeout(() => onComplete(), 1200);
-          }, 400);
-          return 100;
-        }
-        return Math.min(prev + (Math.random() * 10 + 2), 100);
-      });
-    }, 150);
-    return () => clearInterval(interval);
-  }, [onComplete]);
+// Lightweight loading animation — pure CSS, zero Framer Motion
+export default function LoadingAnimation({ onComplete }: { onComplete: () => void }) {
+  // Use a simple timeout to call onComplete
+  if (typeof window !== 'undefined') {
+    setTimeout(() => onComplete(), 1200);
+  }
 
   return (
-    <AnimatePresence>
-      <motion.div
-        className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column align-items-center justify-content-center"
-        style={{
-          zIndex: 9999,
-          background: 'radial-gradient(ellipse at center, #1b003a 0%, #0B0C10 70%, #000000 100%)',
-          overflow: 'hidden',
-          perspective: '1000px'
-        }}
-        initial={{ opacity: 1 }}
-        exit={{ opacity: 0, scale: 1.5, filter: 'blur(20px)' }}
-        transition={{ duration: 1, ease: "easeInOut" }}
-      >
-        {/* Parallax Stars Layer */}
-        {stars.map((star) => (
-          <motion.div
-            key={star.id}
-            className="position-absolute rounded-circle bg-white"
-            style={{
-              width: star.size,
-              height: star.size,
-              top: star.top,
-              left: star.left,
-              boxShadow: `0 0 ${star.size * 2}px rgba(255,255,255,0.8)`
-            }}
-            animate={{
-              opacity: [0.1, 1, 0.1],
-              scale: [1, 1.2, 1],
-              y: [0, -20]
-            }}
-            transition={{
-              duration: star.duration,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          />
-        ))}
+    <div
+      className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column align-items-center justify-content-center"
+      style={{ zIndex: 9999, background: 'radial-gradient(ellipse at center, #1b003a 0%, #0B0C10 70%, #000 100%)', overflow: 'hidden' }}
+    >
+      <style>{`
+        @keyframes spinLogo { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+        @keyframes fillBar { from { width: 0%; } to { width: 100%; } }
+        @keyframes fadeOut { 0%,80% { opacity:1; } 100% { opacity:0; pointer-events:none; } }
+        @keyframes pulse3d { 0%,100% { box-shadow: 0 0 20px #00f2fe; } 50% { box-shadow: 0 0 50px #00f2fe, 0 0 80px rgba(0,242,254,0.4); } }
+        .loader-wrap { animation: fadeOut 1.5s ease forwards; animation-delay: 0.8s; }
+        .logo-spin { animation: spinLogo 2s ease forwards; }
+        .progress-fill { animation: fillBar 0.9s cubic-bezier(0.4,0,0.2,1) forwards; }
+        .logo-pulse { animation: pulse3d 1.5s ease infinite; }
+        /* CSS star field */
+        .loader-stars-sm, .loader-stars-md {
+          position: absolute; top: 0; left: 0; width: 1px; height: 1px;
+        }
+        .loader-stars-sm {
+          box-shadow: 80px 40px 1px #fff, 200px 150px 1px #fff, 450px 80px 1px #fff,
+            600px 300px 1px #fff, 120px 500px 1px #fff, 750px 200px 1px #fff,
+            900px 450px 1px #fff, 300px 700px 1px #fff, 1100px 100px 1px #fff,
+            50px 600px 1px #fff, 1300px 500px 1px #fff, 700px 800px 1px #fff;
+        }
+        .loader-stars-md {
+          width: 2px; height: 2px;
+          box-shadow: 180px 200px 2px rgba(0,242,254,0.6), 500px 350px 2px rgba(0,242,254,0.6),
+            800px 100px 2px rgba(0,242,254,0.6), 1200px 600px 2px rgba(0,242,254,0.6),
+            350px 800px 2px rgba(138,43,226,0.6), 950px 700px 2px rgba(138,43,226,0.6);
+        }
+      `}</style>
 
-        {/* Deep Space Glowing Planets/Galaxies */}
-        <motion.div 
-          className="position-absolute rounded-circle"
-          style={{ width: '40vmax', height: '40vmax', background: 'radial-gradient(circle, rgba(0,242,254,0.15) 0%, rgba(0,0,0,0) 70%)', top: '-10%', left: '-10%', filter: 'blur(40px)' }}
-          animate={{ rotate: 360, scale: [1, 1.1, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-        />
-        <motion.div 
-          className="position-absolute rounded-circle"
-          style={{ width: '60vmax', height: '60vmax', background: 'radial-gradient(circle, rgba(138,43,226,0.1) 0%, rgba(0,0,0,0) 70%)', bottom: '-20%', right: '-10%', filter: 'blur(50px)' }}
-          animate={{ rotate: -360, scale: [1, 1.2, 1] }}
-          transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-        />
+      <span className="loader-stars-sm" />
+      <span className="loader-stars-md" />
 
-        {/* Central Logo & Progress Container */}
-        <motion.div
-          animate={isComplete ? { scale: 15, opacity: 0, rotateZ: 45 } : { scale: 1, opacity: 1, rotateZ: 0 }}
-          transition={{ duration: 1.2, ease: "easeInOut" }}
-          className="d-flex flex-column align-items-center z-3"
-          style={{ transformStyle: 'preserve-3d' }}
-        >
-          {/* 3D Spinning Logo */}
-          <motion.div
-            className="mb-5 position-relative"
-            style={{ width: '150px', height: '150px' }}
-            initial={{ rotateY: -180, opacity: 0, z: -500 }}
-            animate={{ rotateY: 0, opacity: 1, z: 0 }}
-            transition={{ type: "spring", stiffness: 50, damping: 20, duration: 2 }}
-          >
-            <motion.div
-              animate={{ rotateY: 360, y: [0, -15, 0] }}
-              transition={{ rotateY: { duration: 6, repeat: Infinity, ease: "linear" }, y: { duration: 3, repeat: Infinity, ease: "easeInOut" } }}
-              style={{ transformStyle: 'preserve-3d', width: '100%', height: '100%' }}
-            >
-              <Image 
-                src="/images/logo.png" 
-                alt="ABWcurious Logo" 
-                fill 
-                className="object-fit-contain drop-shadow-glow" 
-                style={{ filter: 'drop-shadow(0 0 20px rgba(0,242,254,0.8))' }}
-              />
-            </motion.div>
-          </motion.div>
+      <div className="loader-wrap d-flex flex-column align-items-center">
+        {/* Logo */}
+        <div style={{ width: 130, height: 130, marginBottom: 32, perspective: 600 }}>
+          <div className="logo-spin logo-pulse" style={{ width: '100%', height: '100%', borderRadius: '50%', overflow: 'hidden', background: 'rgba(0,242,254,0.05)', border: '2px solid rgba(0,242,254,0.3)' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/logo.png" alt="ABWcurious" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          </div>
+        </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="text-center w-100"
-          >
-            <h3 className="fw-bold mb-3" style={{ color: '#ffffff', letterSpacing: '6px', textTransform: 'uppercase', textShadow: '0 0 15px rgba(0,242,254,0.6)' }}>
-              ABWCURIOUS
-            </h3>
-            
-            <div className="d-flex align-items-center justify-content-center gap-3">
-              <div 
-                className="overflow-hidden rounded-pill" 
-                style={{ width: '250px', height: '4px', background: 'rgba(255,255,255,0.1)', boxShadow: 'inset 0 0 10px rgba(0,0,0,0.5)' }}
-              >
-                <motion.div
-                  style={{ height: '100%', background: 'linear-gradient(90deg, transparent, #00f2fe, #fff)', boxShadow: '0 0 15px #00f2fe' }}
-                  initial={{ width: '0%' }}
-                  animate={{ width: `${progress}%` }}
-                />
-              </div>
-              <span className="fw-bold" style={{ color: '#00f2fe', minWidth: '45px', textAlign: 'right', textShadow: '0 0 10px #00f2fe' }}>
-                {Math.floor(progress)}%
-              </span>
-            </div>
-          </motion.div>
-        </motion.div>
+        {/* Brand Name */}
+        <h3 style={{ color: '#fff', letterSpacing: 6, textTransform: 'uppercase', textShadow: '0 0 15px rgba(0,242,254,0.8)', marginBottom: 20 }}>
+          ABWCURIOUS
+        </h3>
 
-      </motion.div>
-    </AnimatePresence>
+        {/* Progress bar */}
+        <div style={{ width: 250, height: 4, background: 'rgba(255,255,255,0.1)', borderRadius: 99, overflow: 'hidden', boxShadow: 'inset 0 0 10px rgba(0,0,0,0.5)' }}>
+          <div className="progress-fill" style={{ height: '100%', background: 'linear-gradient(90deg, transparent, #00f2fe, #fff)', boxShadow: '0 0 15px #00f2fe', borderRadius: 99 }} />
+        </div>
+        <p style={{ color: '#00f2fe', marginTop: 10, fontSize: 13, letterSpacing: 2 }}>INITIALIZING...</p>
+      </div>
+    </div>
   );
 }

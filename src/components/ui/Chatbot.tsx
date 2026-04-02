@@ -101,7 +101,7 @@ export default function Chatbot() {
     }
     
     try {
-      const systemPrompt = "You are Nexus, an extraordinarily adorable, intelligent, and friendly 3D robot AI assistant for ABW Curious Learning. Be remarkably concise (1-2 sentences maximum), incredibly polite, and use emojis. Context parameters: ABW Curious Learning is a premium tech education and IT services company located in Vashi, Navi Mumbai, India. We offer Web Development, Mobile Development (Flutter, iOS, Android), Cyber Security, Professional Training, and Career Guidance. Email: abwcurious.pvtltd@gmail.com. Phone: +91 8108915402. Answer queries strictly based on this context. If unknown, gracefully mention a human architect will assist them soon.";
+      const systemPrompt = "You are Nexus, an extraordinarily adorable, intelligent, and friendly 3D robot AI assistant for ABW Curious Learning. Be remarkably concise (1-2 sentences maximum), incredibly polite, and professional. Context parameters: ABWcurious Learning is a premium tech education and IT services company located in Vashi, Navi Mumbai, India. We offer Web Development, Mobile Development (Flutter, iOS, Android), Cyber Security, Professional Training, and Career Guidance. Email: info@abwcurious.com. Phone: +91 8108915402. Answer queries strictly based on this context. If unknown, gracefully mention a human architect will assist them soon.";
       
       const apiMessages = [
         { role: 'system', content: systemPrompt },
@@ -142,7 +142,7 @@ export default function Chatbot() {
       setMessages(prev => {
         const newMsgs = [...prev];
         newMsgs.pop(); 
-        return [...newMsgs, { sender: 'bot', text: "Ouch! My neural link to the Mistral cluster just dropped 😢 Please try again!" }];
+        return [...newMsgs, { sender: 'bot', text: "Ouch! My neural link to the Nexus AI just dropped 😢 Please try again!" }];
       });
       setEmotion('sad');
     }
@@ -235,10 +235,10 @@ export default function Chatbot() {
                className="glass-card rounded-4 shadow-lg d-flex flex-column overflow-hidden" 
                style={{ 
                  height: isMinimized ? 'auto' : '550px', 
-                 background: 'rgba(10, 10, 20, 0.95)', 
+                 background: 'rgba(10, 10, 20, 0.97)', 
                  border: '1px solid rgba(0,242,254,0.4)', 
                  backdropFilter: 'blur(30px)',
-                 boxShadow: '0 15px 50px rgba(0,0,0,0.5)'
+                 boxShadow: '0 20px 60px rgba(0,0,0,0.7), 0 0 30px rgba(0,242,254,0.1)'
                }}
              >
                {/* Controls Header */}
@@ -269,7 +269,10 @@ export default function Chatbot() {
                {/* Messages Array */}
                {!isMinimized && (
                  <>
-                   <div className="flex-grow-1 p-3 overflow-y-auto custom-scroll">
+                   <div 
+                    className="flex-grow-1 p-3 custom-scroll" 
+                    style={{ overflowY: 'auto', maxHeight: '380px', minHeight: '100px' }}
+                   >
                      <div className="d-flex flex-column gap-3">
                        {messages.map((m, i) => (
                           <div key={i} className={`d-flex flex-column ${m.sender === 'user' ? 'align-items-end' : 'align-items-start'}`}>

@@ -8,15 +8,17 @@ interface LoaderWrapperProps {
 }
 
 export default function LoaderWrapper({ children }: LoaderWrapperProps) {
-  const [showLoader, setShowLoader] = useState(true);
+  // Disabled arbitrary static loader to massively boost Lighthouse metrics
+  const [showLoader, setShowLoader] = useState(false);
 
   const handleLoadingComplete = () => {
     setShowLoader(false);
   };
 
-  if (showLoader) {
-    return <LoadingAnimation onComplete={handleLoadingComplete} />;
-  }
-
-  return <>{children}</>;
+  return (
+    <>
+      {showLoader && <LoadingAnimation onComplete={handleLoadingComplete} />}
+      {children}
+    </>
+  );
 }

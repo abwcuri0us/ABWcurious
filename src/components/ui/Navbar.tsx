@@ -68,9 +68,18 @@ export default function Navbar() {
           
           {/* Logo Assembly */}
           <Link href="/" className="navbar-brand d-flex align-items-center">
-            <h2 className="m-0 text-primary d-flex align-items-center">
-              <Image src="/images/logo.png" alt="ABW Curious Logo" width={isScrolled ? 60 : 75} height={isScrolled ? 58 : 71} className="me-2" style={{ transition: 'all 0.4s' }} />
-            </h2>
+            <div className="position-relative d-flex align-items-center me-2" style={{ width: isScrolled ? 60 : 75, height: isScrolled ? 58 : 71, transition: 'all 0.4s', flexShrink: 0 }}>
+              <Image
+                src="/images/logo.png"
+                alt="ABWcurious Logo"
+                width={isScrolled ? 60 : 75}
+                height={isScrolled ? 58 : 71}
+                priority
+                loading="eager"
+                sizes="75px"
+                style={{ transition: 'all 0.4s', objectFit: 'contain' }}
+              />
+            </div>
           </Link>
 
           {/* Mobile Toggler */}
@@ -214,7 +223,7 @@ export default function Navbar() {
                 ) : (
                   <>
                     <Link href="/login" className="btn btn-outline-info rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center justify-content-center hover-glow" style={{ borderWidth: '2px', transition: 'all 0.3s' }}>Log In</Link>
-                    <Link href="/login?mode=join" className="btn btn-primary rounded-pill px-4 fw-bold shadow-lg d-flex align-items-center justify-content-center hover-scale" style={{ background: 'linear-gradient(135deg, #06BBCC, #2196f3)', border: 'none', transition: 'all 0.3s' }}>Join Now</Link>
+                    <Link href="/login?mode=join" className="btn btn-primary rounded-pill px-4 fw-bold shadow-lg d-flex align-items-center justify-content-center hover-scale" style={{ background: 'linear-gradient(135deg, #06BBCC, #2196f3)', border: 'none', transition: 'all 0.3s' }}>Sign Up</Link>
                   </>
                 )}
               </div>

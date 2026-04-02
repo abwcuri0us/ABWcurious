@@ -3,6 +3,8 @@
 import { useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import Hero from '@/components/ui/Hero';
 import ServiceCard from '@/components/ui/ServiceCard';
 import { Globe, Smartphone, Shield, GraduationCap, Users, Target, BookOpen, Award } from 'lucide-react';
@@ -75,15 +77,23 @@ export default function Home() {
             <div className="col-lg-6">
               <motion.div 
                 className="position-relative overflow-hidden" 
-                style={{ height: 400, borderRadius: '2rem', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 0 30px rgba(0,242,254,0.1)', perspective: 1000, transformStyle: 'preserve-3d' }}
+                style={{ height: 400, borderRadius: '2rem', perspective: 1000, transformStyle: 'preserve-3d' }}
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 whileHover={{ scale: 1.03, rotateX: 5, rotateY: -5, z: 30 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                <img src="/images/homepage2.jpg" alt="ABW Curious Learning" className="w-100 h-100 object-fit-cover" />
-                <div className="position-absolute top-0 start-0 w-100 h-100" style={{ background: 'rgba(6,187,204,0.2)' }}></div>
+                <Image
+                  src="/images/homepage2.jpg"
+                  alt="ABW Curious Learning"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-fit-cover rounded-5"
+                  style={{ border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 0 30px rgba(0,242,254,0.1)' }}
+                />
+                <div className="position-absolute top-0 start-0 w-100 h-100 rounded-5" style={{ background: 'rgba(6,187,204,0.2)' }} />
               </motion.div>
             </div>
           </div>
@@ -148,7 +158,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
           >
-            <a href="/join-now" className="btn btn-primary px-5 py-3">Join Now</a>
+            <Link href="/login?mode=join" className="btn btn-primary px-5 py-3">Sign Up</Link>
             <a href="/contact" className="btn btn-outline-primary px-5 py-3">Contact Us</a>
           </motion.div>
         </div>

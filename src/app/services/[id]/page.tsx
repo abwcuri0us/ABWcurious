@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
 
 export default function ServicePage() {
   const params = useParams();
@@ -94,6 +95,29 @@ export default function ServicePage() {
         </div>
       </div>
 
+      <div className="container py-5 mt-4">
+        <div className="row g-5 align-items-center">
+          <div className="col-lg-6">
+            <h3 className="text-white fw-bold mb-4">Our Deployment Methodology</h3>
+            <p className="text-white-50 lh-lg">
+              We leverage an agile, iterative workflow combined with strict quality assurance and automated CI/CD pipelines. This ensures that every deployment is highly stable, inherently secure, and engineered to scale seamlessly across global nodes.
+            </p>
+            <ul className="text-light list-unstyled mt-4 d-flex flex-column gap-3">
+              <li><i className="bi bi-arrow-right-circle-fill text-primary me-2"></i> <strong>Phase 1:</strong> Architecture & Feasibility Mapping</li>
+              <li><i className="bi bi-arrow-right-circle-fill text-primary me-2"></i> <strong>Phase 2:</strong> Prototyping & UX Orchestration</li>
+              <li><i className="bi bi-arrow-right-circle-fill text-primary me-2"></i> <strong>Phase 3:</strong> Development & Algorithmic Integration</li>
+              <li><i className="bi bi-arrow-right-circle-fill text-primary me-2"></i> <strong>Phase 4:</strong> Security Audits & Production Deployment</li>
+            </ul>
+          </div>
+          <div className="col-lg-6">
+            <div className="glass-card p-4 rounded-4" style={{ background: 'rgba(0,242,254,0.02)', border: '1px solid rgba(0,242,254,0.1)' }}>
+               <h4 className="text-white mb-3"><i className="bi bi-info-circle text-info me-2"></i> Why Choose ABWcurious?</h4>
+               <p className="text-white-50 mb-0">Unlike standard agencies, we encode military-grade encryption and futuristic aesthetic principles into the DNA of every project. Your software won't just work—it will dominate.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="container py-5 mb-5">
         <div className="row g-4 justify-content-center">
           {data.tiers.map((tier: any, i: number) => (
@@ -126,7 +150,7 @@ export default function ServicePage() {
                   ))}
                 </div>
                 <div className="mt-5" style={{ transform: 'translateZ(25px)' }}>
-                  <button className="btn btn-outline-primary w-100 rounded-pill py-2 fw-bold">Deploy Plan</button>
+                  <Link href={`/checkout?plan=${encodeURIComponent(tier.name)}&price=${encodeURIComponent(tier.price)}&service=${encodeURIComponent(data.title)}`} className="btn btn-outline-primary w-100 rounded-pill py-2 fw-bold d-block text-center">Deploy Plan</Link>
                 </div>
               </div>
             </motion.div>

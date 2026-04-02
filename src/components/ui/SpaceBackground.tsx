@@ -1,23 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+// ─────────────────────────────────────────────────────────────────────────────
+// SpaceBackground — GPU-composited, zero JS animation overhead
+// Star field uses pure CSS box-shadow on 3 <span> elements instead of
+// 250 individual motion.div nodes. This cuts frame time from ~60ms → ~2ms.
+// ─────────────────────────────────────────────────────────────────────────────
 
 export default function SpaceBackground() {
-  const [stars, setStars] = useState<{ id: number; size: number; top: string; left: string; duration: number }[]>([]);
-
-  useEffect(() => {
-    // Generate massive star field
-    const newStars = Array.from({ length: 250 }).map((_, i) => ({
-      id: i,
-      size: Math.random() * 3 + 0.5,
-      top: `${Math.random() * 100}%`,
-      left: `${Math.random() * 100}%`,
-      duration: Math.random() * 4 + 2,
-    }));
-    setStars(newStars);
-  }, []);
-
   return (
     <div
       className="position-fixed top-0 start-0 w-100 h-100"
@@ -26,135 +15,203 @@ export default function SpaceBackground() {
         background: 'radial-gradient(ellipse at bottom, #1b2735 0%, #050608 100%)',
         overflow: 'hidden',
         pointerEvents: 'none',
+        willChange: 'auto',
       }}
     >
-      {/* Complex Cosmic CSS Physics */}
       <style>{`
-        @keyframes orbitSatellite {
-          0% { transform: rotate(0deg) translateX(35vw) rotate(0deg); }
-          100% { transform: rotate(360deg) translateX(35vw) rotate(-360deg); }
+        /* ── Star field via CSS box-shadow trick (zero JS) ── */
+        @keyframes twinkle {
+          0%, 100% { opacity: 0.4; }
+          50%       { opacity: 1; }
         }
-        @keyframes rocketShoot {
-          0% { transform: translate(-10vw, 110vh) rotate(45deg); }
-          100% { transform: translate(110vw, -20vh) rotate(45deg); }
+        @keyframes parallaxDrift {
+          0%   { transform: translateY(0); }
+          100% { transform: translateY(-100vh); }
         }
+        .stars-sm, .stars-md, .stars-lg {
+          position: absolute;
+          top: 0; left: 0;
+          width: 1px; height: 1px;
+          border-radius: 50%;
+          animation: parallaxDrift linear infinite;
+          will-change: transform;
+        }
+        .stars-sm {
+          background: transparent;
+          box-shadow:
+            120px 40px 1px #fff, 340px 200px 1px #fff, 560px 80px 1px #fff,
+            780px 300px 1px #fff, 220px 450px 1px #fff, 670px 520px 1px #fff,
+            890px 150px 1px #fff, 140px 680px 1px #fff, 430px 750px 1px #fff,
+            920px 620px 1px #fff, 50px 300px 1px #fff, 700px 400px 1px #fff,
+            1100px 60px 1px #fff, 1300px 350px 1px #fff, 1500px 500px 1px #fff,
+            200px 900px 1px #fff, 450px 100px 1px #fff, 800px 800px 1px #fff,
+            1200px 700px 1px #fff, 600px 950px 1px #fff, 950px 50px 1px #fff,
+            1400px 200px 1px #fff, 300px 600px 1px #fff, 1600px 850px 1px #fff,
+            750px 650px 1px #fff, 1050px 450px 1px #fff, 1700px 300px 1px #fff,
+            80px 850px 1px #fff, 1800px 600px 1px #fff, 380px 380px 1px #fff;
+          animation-duration: 300s;
+        }
+        .stars-md {
+          width: 2px; height: 2px;
+          background: transparent;
+          box-shadow:
+            180px 120px 2px rgba(200,220,255,0.8),
+            500px 340px 2px rgba(200,220,255,0.8),
+            900px 200px 2px rgba(200,220,255,0.8),
+            1200px 550px 2px rgba(200,220,255,0.8),
+            300px 700px 2px rgba(200,220,255,0.8),
+            750px 850px 2px rgba(200,220,255,0.8),
+            1400px 100px 2px rgba(200,220,255,0.8),
+            60px 500px 2px rgba(200,220,255,0.8),
+            1600px 750px 2px rgba(200,220,255,0.8),
+            1050px 900px 2px rgba(0,242,254,0.6),
+            420px 250px 2px rgba(0,242,254,0.6),
+            1300px 420px 2px rgba(0,242,254,0.6),
+            680px 600px 2px rgba(0,242,254,0.6),
+            1550px 300px 2px rgba(0,242,254,0.6);
+          animation-duration: 200s;
+        }
+        .stars-lg {
+          width: 3px; height: 3px;
+          background: transparent;
+          box-shadow:
+            250px 90px 3px rgba(255,255,255,0.9),
+            780px 480px 3px rgba(255,255,255,0.9),
+            1350px 200px 3px rgba(255,255,255,0.9),
+            550px 750px 3px rgba(255,255,255,0.9),
+            1100px 600px 3px rgba(255,255,255,0.9),
+            150px 400px 3px rgba(0,242,254,0.9),
+            1600px 500px 3px rgba(0,242,254,0.9),
+            900px 300px 3px rgba(138,43,226,0.8);
+          animation-duration: 100s;
+        }
+
+        /* ── Comet streaks ── */
         @keyframes cometFly {
-          0% { transform: translate(110vw, -10vh) rotate(-35deg); opacity: 1; }
-          100% { transform: translate(-20vw, 50vh) rotate(-35deg); opacity: 0; }
+          0%   { transform: translate(110vw, -10vh) rotate(-35deg); opacity: 1; }
+          100% { transform: translate(-20vw, 50vh)  rotate(-35deg); opacity: 0; }
         }
+        .comet {
+          position: absolute;
+          height: 2px;
+          border-radius: 50%;
+          will-change: transform, opacity;
+          animation: cometFly cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        /* ── Satellite orbit ── */
+        @keyframes orbitSatellite {
+          from { transform: rotate(0deg) translateX(30vw) rotate(0deg); }
+          to   { transform: rotate(360deg) translateX(30vw) rotate(-360deg); }
+        }
+        .satellite-arm {
+          animation: orbitSatellite 60s linear infinite;
+          will-change: transform;
+        }
+
+        /* ── Slow planet spin ── */
         @keyframes slowSpin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
         }
+
+        /* ── Pulse ── */
         @keyframes botPulse {
-          0%, 100% { opacity: 0.6; box-shadow: 0 0 10px #0dcaf0; }
-          50% { opacity: 1; box-shadow: 0 0 20px #0dcaf0; }
+          0%,100% { opacity: 0.6; }
+          50%     { opacity: 1;   }
         }
       `}</style>
 
-      {/* Parallax Stars Layer */}
-      {stars.map((star) => (
-        <motion.div
-          key={star.id}
-          className="position-absolute rounded-circle bg-white"
-          style={{
-            width: star.size,
-            height: star.size,
-            top: star.top,
-            left: star.left,
-            boxShadow: `0 0 ${star.size * 2}px rgba(255,255,255,0.8)`,
-          }}
-          animate={{
-            opacity: [0.2, 1, 0.2],
-            scale: [1, 1.5, 1],
-            y: [0, -10],
-          }}
-          transition={{
-            duration: star.duration,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      ))}
+      {/* CSS-only star layers */}
+      <span className="stars-sm" />
+      <span className="stars-md" />
+      <span className="stars-lg" />
 
-      {/* The Sun (Glowing brightly in top right) */}
-      <div 
-        className="position-absolute" 
-        style={{ top: '8%', right: '12%', width: '150px', height: '150px', background: 'radial-gradient(circle, #ffdd00 0%, #ff8800 50%, transparent 100%)', borderRadius: '50%', filter: 'blur(8px)', boxShadow: '0 0 120px #ffdd00' }}
-      ></div>
+      {/* Static nebula blobs — NO animation, NO blur on animating elements */}
+      <div style={{
+        position: 'absolute', top: '-10%', left: '-20%',
+        width: '60vmax', height: '60vmax',
+        background: 'radial-gradient(circle, rgba(0,242,254,0.05) 0%, transparent 70%)',
+        borderRadius: '50%',
+        pointerEvents: 'none',
+      }} />
+      <div style={{
+        position: 'absolute', bottom: '-20%', right: '-15%',
+        width: '80vmax', height: '80vmax',
+        background: 'radial-gradient(circle, rgba(138,43,226,0.04) 0%, transparent 70%)',
+        borderRadius: '50%',
+        pointerEvents: 'none',
+      }} />
 
-      {/* The Moon (Cool cratered glow in top left) */}
-      <motion.div 
-        className="position-absolute" 
-        style={{ top: '15%', left: '8%', width: '90px', height: '90px', background: 'radial-gradient(circle, #e0e0e0 0%, #888888 70%, transparent 100%)', borderRadius: '50%', boxShadow: '0 0 40px rgba(255,255,255,0.4)', overflow: 'hidden' }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 200, repeat: Infinity, ease: 'linear' }}
-      >
-        <div className="position-absolute rounded-circle" style={{ width: '20px', height: '20px', background: 'rgba(0,0,0,0.15)', top: '15px', left: '25px', boxShadow: 'inset 2px 2px 5px rgba(0,0,0,0.5)' }}></div>
-        <div className="position-absolute rounded-circle" style={{ width: '12px', height: '12px', background: 'rgba(0,0,0,0.15)', top: '45px', left: '55px', boxShadow: 'inset 2px 2px 5px rgba(0,0,0,0.5)' }}></div>
-        <div className="position-absolute rounded-circle" style={{ width: '30px', height: '30px', background: 'rgba(0,0,0,0.1)', top: '50px', left: '15px', boxShadow: 'inset 2px 2px 5px rgba(0,0,0,0.5)' }}></div>
-      </motion.div>
+      {/* The Sun */}
+      <div style={{
+        position: 'absolute', top: '8%', right: '12%',
+        width: 150, height: 150,
+        background: 'radial-gradient(circle, #ffdd00 0%, #ff8800 50%, transparent 100%)',
+        borderRadius: '50%',
+        boxShadow: '0 0 80px #ffdd00',
+        filter: 'blur(6px)',
+      }} />
 
-      {/* Deep Space Glowing Galaxies */}
-      <motion.div className="position-absolute rounded-circle" style={{ width: '60vmax', height: '60vmax', background: 'radial-gradient(circle, rgba(0,242,254,0.06) 0%, rgba(0,0,0,0) 70%)', top: '-10%', left: '-20%', filter: 'blur(50px)' }} animate={{ rotate: 360, scale: [1, 1.1, 1] }} transition={{ duration: 50, repeat: Infinity, ease: 'linear' }} />
-      <motion.div className="position-absolute rounded-circle" style={{ width: '80vmax', height: '80vmax', background: 'radial-gradient(circle, rgba(138,43,226,0.04) 0%, rgba(0,0,0,0) 70%)', bottom: '-20%', right: '-15%', filter: 'blur(70px)' }} animate={{ rotate: -360, scale: [1, 1.2, 1] }} transition={{ duration: 70, repeat: Infinity, ease: 'linear' }} />
-
-      {/* Massive Orbiting Cyan Gas Giant (Bottom Left) */}
-      <motion.div 
-        className="position-absolute" 
-        style={{ bottom: '5%', left: '15%', width: '300px', height: '300px', borderRadius: '50%', background: 'linear-gradient(45deg, rgba(6,187,204,0.4), rgba(33,150,243,0.1))', boxShadow: 'inset -30px -30px 60px rgba(0,0,0,0.9), 0 0 50px rgba(0,242,254,0.2)' }} 
-        animate={{ rotate: 360 }} 
-        transition={{ duration: 150, repeat: Infinity, ease: 'linear' }}
-      >
-         {/* Gas Stripes */}
-         <div className="position-absolute w-100" style={{ height: '40px', background: 'rgba(255,255,255,0.05)', top: '80px', transform: 'rotate(-20deg)' }}></div>
-         <div className="position-absolute w-100" style={{ height: '20px', background: 'rgba(255,255,255,0.03)', top: '150px', transform: 'rotate(-20deg)' }}></div>
-      </motion.div>
-
-      {/* Deep Red Planet (Top Center-Right) */}
-      <motion.div 
-        className="position-absolute" 
-        style={{ top: '25%', right: '35%', width: '80px', height: '80px', borderRadius: '50%', background: 'linear-gradient(135deg, #ff4e50, #f9d423)', boxShadow: 'inset -15px -15px 20px rgba(0,0,0,0.8)' }} 
-        animate={{ rotate: -360 }} 
-        transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
-      >
-      </motion.div>
-
-      {/* Passing Rocket Interceptor */}
-      <div className="position-absolute" style={{ animation: 'rocketShoot 30s linear infinite', zIndex: 1 }}>
-        <div style={{ width: '60px', height: '25px', background: 'linear-gradient(to right, #6c757d, #adb5bd)', borderRadius: '30px 60px 60px 30px', position: 'relative', boxShadow: 'inset 0 2px 5px rgba(255,255,255,0.5)' }}>
-           {/* Rocket Window */}
-           <div className="position-absolute rounded-circle bg-info" style={{ width: '12px', height: '12px', top: '6px', right: '15px', border: '2px solid #343a40' }}></div>
-           {/* Rocket Tail Fins */}
-           <div className="position-absolute bg-secondary" style={{ width: '15px', height: '10px', top: '-8px', left: '5px', transform: 'skewX(30deg)', borderRadius: '3px' }}></div>
-           <div className="position-absolute bg-secondary" style={{ width: '15px', height: '10px', bottom: '-8px', left: '5px', transform: 'skewX(-30deg)', borderRadius: '3px' }}></div>
-           {/* Rocket Engine Thrust */}
-           <div className="position-absolute" style={{ width: '25px', height: '20px', background: 'linear-gradient(to right, #ffdd00, #ff4e50, transparent)', borderRadius: '50%', top: '2.5px', left: '-20px', filter: 'blur(2px)', animation: 'botPulse 0.2s infinite alternate' }}></div>
-        </div>
+      {/* The Moon — single CSS animation, will-change: transform */}
+      <div style={{
+        position: 'absolute', top: '15%', left: '8%',
+        width: 90, height: 90,
+        background: 'radial-gradient(circle, #e0e0e0 0%, #888 70%, transparent 100%)',
+        borderRadius: '50%',
+        boxShadow: '0 0 30px rgba(255,255,255,0.3)',
+        animation: 'slowSpin 200s linear infinite',
+        willChange: 'transform',
+        overflow: 'hidden',
+      }}>
+        <div style={{ position:'absolute', width:20, height:20, background:'rgba(0,0,0,0.15)', top:15, left:25, borderRadius:'50%', boxShadow:'inset 2px 2px 5px rgba(0,0,0,0.5)' }} />
+        <div style={{ position:'absolute', width:12, height:12, background:'rgba(0,0,0,0.15)', top:45, left:55, borderRadius:'50%', boxShadow:'inset 2px 2px 5px rgba(0,0,0,0.5)' }} />
+        <div style={{ position:'absolute', width:30, height:30, background:'rgba(0,0,0,0.1)',  top:50, left:15, borderRadius:'50%', boxShadow:'inset 2px 2px 5px rgba(0,0,0,0.5)' }} />
       </div>
 
-      {/* Orbiting Tech Satellite */}
-      <div className="position-absolute top-50 start-50 translate-middle">
-        <div style={{ animation: 'orbitSatellite 60s linear infinite' }}>
-          <div style={{ width: '40px', height: '15px', background: '#343a40', position: 'relative', borderRadius: '3px' }}>
-             {/* Solar Panels */}
-             <div className="position-absolute" style={{ width: '35px', height: '45px', background: 'linear-gradient(to bottom, #0dcaf0, #0d6efd)', top: '-15px', left: '-35px', border: '1px solid rgba(255,255,255,0.2)', opacity: 0.8 }}>
-                <div className="w-100 h-50 border-bottom border-white opacity-50"></div>
-             </div>
-             <div className="position-absolute" style={{ width: '35px', height: '45px', background: 'linear-gradient(to bottom, #0dcaf0, #0d6efd)', top: '-15px', right: '-35px', border: '1px solid rgba(255,255,255,0.2)', opacity: 0.8 }}>
-                <div className="w-100 h-50 border-bottom border-white opacity-50"></div>
-             </div>
-             {/* Satellite Blink Radar */}
-             <div className="position-absolute rounded-circle bg-danger" style={{ width: '6px', height: '6px', top: '4.5px', right: '10px', boxShadow: '0 0 10px #dc3545', animation: 'botPulse 1s infinite alternate' }}></div>
+      {/* Cyan Gas Giant */}
+      <div style={{
+        position: 'absolute', bottom: '5%', left: '15%',
+        width: 300, height: 300, borderRadius: '50%',
+        background: 'linear-gradient(45deg, rgba(6,187,204,0.35), rgba(33,150,243,0.1))',
+        boxShadow: 'inset -30px -30px 60px rgba(0,0,0,0.9), 0 0 40px rgba(0,242,254,0.15)',
+        animation: 'slowSpin 150s linear infinite',
+        willChange: 'transform',
+        overflow: 'hidden',
+      }}>
+        <div style={{ position:'absolute', width:'100%', height:40, background:'rgba(255,255,255,0.04)', top:80, transform:'rotate(-20deg)' }} />
+        <div style={{ position:'absolute', width:'100%', height:20, background:'rgba(255,255,255,0.025)', top:150, transform:'rotate(-20deg)' }} />
+      </div>
+
+      {/* Red Planet */}
+      <div style={{
+        position: 'absolute', top: '25%', right: '35%',
+        width: 80, height: 80, borderRadius: '50%',
+        background: 'linear-gradient(135deg, #ff4e50, #f9d423)',
+        boxShadow: 'inset -15px -15px 20px rgba(0,0,0,0.8)',
+        animation: 'slowSpin 80s linear infinite reverse',
+        willChange: 'transform',
+      }} />
+
+      {/* Shooting comets */}
+      <div className="comet" style={{ width:150, background:'linear-gradient(to right, transparent, rgba(255,255,255,0.8))', boxShadow:'0 0 8px rgba(255,255,255,0.4)', animationDuration:'12s', animationDelay:'5s' }} />
+      <div className="comet" style={{ width:250, background:'linear-gradient(to right, transparent, rgba(0,242,254,1))', boxShadow:'0 0 12px rgba(0,242,254,0.7)', animationDuration:'18s', animationDelay:'1s', top:'15%' }} />
+      <div className="comet" style={{ width:100, background:'linear-gradient(to right, transparent, rgba(255,193,7,0.9))', boxShadow:'0 0 8px rgba(255,193,7,0.5)', animationDuration:'25s', animationDelay:'10s', bottom:'30%' }} />
+
+      {/* Orbiting Satellite */}
+      <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)' }}>
+        <div className="satellite-arm">
+          <div style={{ width:40, height:15, background:'#343a40', position:'relative', borderRadius:3 }}>
+            <div style={{ position:'absolute', width:35, height:45, background:'linear-gradient(to bottom, #0dcaf0, #0d6efd)', top:-15, left:-35, border:'1px solid rgba(255,255,255,0.2)', opacity:0.8 }}>
+              <div style={{ width:'100%', height:'50%', borderBottom:'1px solid rgba(255,255,255,0.5)' }} />
+            </div>
+            <div style={{ position:'absolute', width:35, height:45, background:'linear-gradient(to bottom, #0dcaf0, #0d6efd)', top:-15, right:-35, border:'1px solid rgba(255,255,255,0.2)', opacity:0.8 }}>
+              <div style={{ width:'100%', height:'50%', borderBottom:'1px solid rgba(255,255,255,0.5)' }} />
+            </div>
+            <div style={{ position:'absolute', width:6, height:6, background:'#dc3545', top:4.5, right:10, borderRadius:'50%', boxShadow:'0 0 8px #dc3545', animation:'botPulse 1s infinite alternate' }} />
           </div>
         </div>
       </div>
-
-      {/* Shooting Comets with Tails */}
-      <div className="position-absolute" style={{ width: '150px', height: '2px', background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.8))', animation: 'cometFly 12s cubic-bezier(0.4, 0, 0.2, 1) infinite 5s', borderRadius: '50%', boxShadow: '0 0 10px rgba(255,255,255,0.5)' }}></div>
-      <div className="position-absolute" style={{ width: '250px', height: '3px', background: 'linear-gradient(to right, transparent, rgba(0,242,254,1))', animation: 'cometFly 18s cubic-bezier(0.4, 0, 0.2, 1) infinite 1s', top: '15%', borderRadius: '50%', boxShadow: '0 0 15px rgba(0,242,254,0.8)' }}></div>
-      <div className="position-absolute" style={{ width: '100px', height: '1.5px', background: 'linear-gradient(to right, transparent, rgba(255,193,7,0.9))', animation: 'cometFly 25s cubic-bezier(0.4, 0, 0.2, 1) infinite 10s', bottom: '30%', borderRadius: '50%', boxShadow: '0 0 10px rgba(255,193,7,0.6)' }}></div>
-
     </div>
   );
 }

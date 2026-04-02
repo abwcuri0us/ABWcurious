@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Briefcase, Code, Users, MessageSquare, PlusCircle, LogOut, Settings, User, Trash2, Edit3, Send, CheckCircle, FileText, Lock } from 'lucide-react';
-import { getDashboardUsers, adminUpdateUser, adminDeleteUser, updateProfileIdentity, deleteOwnAccount, changeOwnPassword, getPrivateChat, sendPrivateChat, submitFormDrop, getFormDrops, deleteFormDrop } from '@/app/actions';
+import { getDashboardUsers, adminUpdateUser, adminDeleteUser, updateProfileIdentity, deleteOwnAccount, changeOwnPassword, getPrivateChat, sendPrivateChat, submitFormDrop, getFormDrops, deleteFormDrop, getContactSubmissions, updateContactStatus, deleteContactSubmission, getFeedbacks, deleteFeedback } from '@/app/actions';
 
 export default function Dashboard() {
   const [role, setRole] = useState<string | null>(null);
@@ -22,6 +22,8 @@ export default function Dashboard() {
   // Admin Tables
   const [networkUsers, setNetworkUsers] = useState<any[]>([]);
   const [formDrops, setFormDrops] = useState<any[]>([]);
+  const [contactQueries, setContactQueries] = useState<any[]>([]);
+  const [feedbacks, setFeedbacks] = useState<any[]>([]);
 
   // Admin App Registry
   const [newAppName, setNewAppName] = useState('');
@@ -155,6 +157,18 @@ export default function Dashboard() {
 
   const triggerAdminDeleteForm = async (id: string) => {
     await deleteFormDrop(id);
+  };
+
+  const triggerResolveContact = async (id: string) => {
+    await updateContactStatus(id, 'resolved');
+  };
+
+  const triggerDeleteContact = async (id: string) => {
+    if(confirm('Wipe contact query?')) await deleteContactSubmission(id);
+  };
+
+  const triggerDeleteFeedback = async (id: string) => {
+    if(confirm('Wipe feedback?')) await deleteFeedback(id);
   };
 
   const registerApp = (e: React.FormEvent) => {
@@ -357,6 +371,58 @@ export default function Dashboard() {
                     </div>
                     <button type="submit" className="btn btn-info text-dark fw-bold mt-2 py-3 shadow-lg w-100 fs-5">Inject Local Navbar</button>
                   </form>
+                </div>
+              </motion.div>
+
+              {/* Contact Queries & Feedback */}
+              <motion.div className="col-lg-7" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
+                <div className="glass-card p-4 h-100 rounded-4" style={{ background: 'rgba(5, 5, 15, 0.8)', border: '1px solid rgba(0, 242, 254, 0.4)' }}>
+                  <div className="d-flex align-items-center gap-3 mb-4">
+                    <div className="p-2 rounded-circle shadow" style={{ background: 'linear-gradient(135deg, #06BBCC, #0d6efd)' }}><User size={20} className="text-white" /></div>
+                    <h4 className="text-white m-0 fw-bold">Live Contact Inquiries</h4>
+                  </div>
+                  <div className="overflow-y-auto pe-2" style={{ maxHeight: '400px' }}>
+                    {contactQueries.length > 0 ? contactQueries.map(q => (
+                      <div key={q.id} className="bg-dark border p-3 rounded-4 mb-3" style={{ borderColor: q.status === 'resolved' ? '#198754' : '#0dcaf0' }}>
+                        <div className="d-flex justify-content-between mb-2">
+                           <span className={`badge ${q.status === 'resolved' ? 'bg-success' : 'bg-info text-dark'} text-uppercase`}>{q.status}</span>
+                           <small className="text-white-50">{new Date(q.createdAt).toLocaleDateString()}</small>
+                        </div>
+                        <h5 className="text-white fw-bold mb-1">{q.subject}</h5>
+                        <div className="text-white-50 small mb-2 d-flex gap-3">
+                          <span>📧 {q.email}</span> <span>👤 {q.name}</span>
+                        </div>
+                        <p className="text-light opacity-75 small mb-3">{q.message}</p>
+                        <div className="d-flex gap-2">
+                          {q.status !== 'resolved' && <button onClick={() => triggerResolveContact(q.id)} className="btn btn-sm btn-outline-success fw-bold">Mark Resolved</button>}
+                          <button onClick={() => triggerDeleteContact(q.id)} className="btn btn-sm btn-outline-danger fw-bold">Wipe Query</button>
+                        </div>
+                      </div>
+                    )) : <p className="text-white-50 text-center py-5">No active contact queries.</p>}
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div className="col-lg-5" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
+                <div className="glass-card p-4 h-100 rounded-4" style={{ background: 'rgba(5, 5, 10, 0.8)', border: '1px solid rgba(168, 85, 247, 0.4)' }}>
+                  <div className="d-flex align-items-center gap-3 mb-4">
+                    <div className="p-2 rounded-circle shadow" style={{ background: 'linear-gradient(135deg, #a855f7, #6366f1)' }}><CheckCircle className="text-white" /></div>
+                    <h4 className="text-white m-0 fw-bold">Platform Feedback Hub</h4>
+                  </div>
+                  <div className="overflow-y-auto pe-2" style={{ maxHeight: '400px' }}>
+                    {feedbacks.length > 0 ? feedbacks.map(f => (
+                      <div key={f.id} className="bg-dark border border-secondary p-3 rounded-4 mb-3 position-relative">
+                        <button onClick={() => triggerDeleteFeedback(f.id)} className="btn btn-sm btn-close btn-close-white position-absolute top-0 end-0 m-2"></button>
+                        <div className="d-flex mb-2">
+                           {[...Array(5)].map((_, i) => <span key={i} style={{ color: i < f.rating ? '#eab308' : 'rgba(255,255,255,0.2)' }}>★</span>)}
+                        </div>
+                        <p className="text-light fs-6 mb-2">&ldquo;{f.comment}&rdquo;</p>
+                        <div className="text-white-50 small">
+                          <span className="fw-bold">{f.name}</span> {f.email && `• ${f.email}`} • {new Date(f.createdAt).toLocaleDateString()}
+                        </div>
+                      </div>
+                    )) : <p className="text-white-50 text-center py-5">No feedback available.</p>}
+                  </div>
                 </div>
               </motion.div>
             </>
