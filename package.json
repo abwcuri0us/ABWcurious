@@ -12,6 +12,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
     "@prisma/client": "^5.22.0",
+    "@vercel/speed-insights": "^latest",
     "bcryptjs": "^3.0.3",
     "framer-motion": "^10.18.0",
     "lucide-react": "^0.539.0",
