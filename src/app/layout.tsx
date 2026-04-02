@@ -8,6 +8,7 @@ import SpaceBackground from "@/components/ui/SpaceBackground";
 import Chatbot from "@/components/ui/Chatbot";
 import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -130,6 +131,9 @@ export default function RootLayout({
         {/* Favicon */}
         <link rel="icon" type="image/png" href="/logo.png" />
         <link rel="apple-touch-icon" href="/logo.png" />
+
+        <Analytics />
+        <SpeedInsights/>
 
         {/* Viewport */}
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
