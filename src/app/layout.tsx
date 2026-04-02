@@ -7,6 +7,7 @@ import LoaderWrapper from "@/components/ui/LoaderWrapper";
 import SpaceBackground from "@/components/ui/SpaceBackground";
 import Chatbot from "@/components/ui/Chatbot";
 import Script from "next/script";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({
   subsets: ["latin"],
