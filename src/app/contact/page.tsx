@@ -39,59 +39,46 @@ export default function ContactPage() {
             <h2 className="display-6 text-white mb-2 fw-bold">Let&apos;s Talk</h2>
             <p className="text-white-50 mb-4">Ready to start your learning journey or have questions about our services? Our team is here to help.</p>
 
-<<<<<<< HEAD
-            {[
-              { icon: '📧', label: 'Email Us', value: 'info@abwcurious.com', href: 'mailto:info@abwcurious.com' },
-              { icon: '📞', label: 'Call Us', value: '+91 8108915402', href: 'tel:+918108915402' },
-              { icon: '📍', label: 'Visit Us', value: 'Vashi, Navi Mumbai, Maharashtra 400703', href: undefined },
-              { icon: '🕐', label: 'Office Hours', value: 'Mon–Sat: 9:00 AM – 7:00 PM IST', href: undefined },
-            ].map((item, i) => (
-              <div key={i} className="d-flex align-items-start gap-4 mb-4 p-4 rounded-4"
-                style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
-                <div className="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
-                  style={{ width: 56, height: 56, background: 'rgba(0,242,254,0.1)', border: '1px solid rgba(0,242,254,0.2)', fontSize: 24 }}>
-                  {item.icon}
-                </div>
-                <div>
-                  <h6 className="text-white mb-1 fw-bold">{item.label}</h6>
-                  {item.href
-                    ? <a href={item.href} className="text-white-50 text-decoration-none" style={{ wordBreak: 'break-all' }}>{item.value}</a>
-                    : <span className="text-white-50">{item.value}</span>}
-                </div>
-              </div>
-            ))}
+{[
+  { icon: '📧', label: 'Email Us', value: 'info@abwcurious.com', href: 'mailto:info@abwcurious.com' },
+  { icon: '📞', label: 'Call Us', value: '+91 8108915402', href: 'tel:+918108915402' },
+  { icon: '📍', label: 'Visit Us', value: 'Vashi, Navi Mumbai, Maharashtra 400703', href: undefined },
+  { icon: '🕐', label: 'Office Hours', value: 'Mon–Sat: 9:00 AM – 7:00 PM IST', href: undefined },
+].map((item, i) => (
+  <div key={i} className="d-flex align-items-start gap-4 mb-4 p-4 rounded-4"
+    style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
+    <div className="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+      style={{ width: 56, height: 56, background: 'rgba(0,242,254,0.1)', border: '1px solid rgba(0,242,254,0.2)', fontSize: 24 }}>
+      {item.icon}
+    </div>
+    <div>
+      <h6 className="text-white mb-1 fw-bold">{item.label}</h6>
+      {item.href
+        ? <a href={item.href} className="text-white-50 text-decoration-none">{item.value}</a>
+        : <span className="text-white-50">{item.value}</span>}
+    </div>
+  </div>
+))}
 
-            {/* Social Links */}
-            <div className="mt-3">
-              <p className="text-white-50 small mb-3">Connect with us:</p>
-              <div className="d-flex flex-wrap gap-2">
-                {[
-                  { label: '🐦 Twitter', href: 'https://x.com/abwcurious' },
-                  { label: '💼 LinkedIn', href: 'https://www.linkedin.com/company/abwcurious' },
-                  { label: '📸 Instagram', href: 'https://www.instagram.com/abwcurious' },
-                  { label: '▶️ YouTube', href: 'https://www.youtube.com/@ABWcurious' },
-                ].map((s, i) => (
-                  <a key={i} href={s.href} target="_blank" rel="noopener noreferrer"
-                    className="btn btn-sm px-3 py-2 text-white fw-semibold"
-                    style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', fontSize: 13 }}>
-                    {s.label}
-                  </a>
-                ))}
-              </div>
-=======
-            <div className="d-flex align-items-start gap-4 mb-4">
-              <div className="flex-shrink-0 rounded-circle d-flex align-items-center justify-content-center" style={{ width: 64, height: 64, background: 'rgba(0,242,254,0.1)', border: '1px solid rgba(0,242,254,0.2)' }}><span className="fs-3">📧</span></div>
-              <div><h5 className="mb-2 text-white">Email</h5><a href="mailto:abwcurious.pvtltd@gmail.com" className="text-white-50">Info@abwcurious.com</a></div>
-            </div>
-            <div className="d-flex align-items-start gap-3 mb-3">
-              <div className="flex-shrink-0 rounded-circle d-flex align-items-center justify-content-center" style={{ width: 64, height: 64, background: 'rgba(0,242,254,0.1)', border: '1px solid rgba(0,242,254,0.2)' }}><span className="fs-3">📞</span></div>
-              <div><h5 className="mb-2 text-white">Phone</h5><a href="tel:+01234567890" className="text-white-50">+91 8108915402</a></div>
-            </div>
-            <div className="d-flex align-items-start gap-3 mb-3">
-              <div className="flex-shrink-0 rounded-circle d-flex align-items-center justify-content-center" style={{ width: 64, height: 64, background: 'rgba(0,242,254,0.1)', border: '1px solid rgba(0,242,254,0.2)' }}><span className="fs-3">📍</span></div>
-              <div><h5 className="mb-2 text-white">Office</h5><span className="text-white-50">Vashi, Navi Mumbai, Maharashtra, India</span></div>
->>>>>>> 68dd46a39e57e2c6a1ad645a18efe3bac4cc073e
-            </div>
+{/* Social Links */}
+<div className="mt-3">
+  <p className="text-white-50 small mb-3">Connect with us:</p>
+  <div className="d-flex flex-wrap gap-2">
+    {[
+      { label: '🐦 Twitter', href: 'https://x.com/abwcurious' },
+      { label: '💼 LinkedIn', href: 'https://www.linkedin.com/company/abwcurious' },
+      { label: '📸 Instagram', href: 'https://www.instagram.com/abwcurious' },
+      { label: '▶️ YouTube', href: 'https://www.youtube.com/@ABWcurious' },
+    ].map((s, i) => (
+      <a key={i} href={s.href} target="_blank" rel="noopener noreferrer"
+        className="btn btn-sm px-3 py-2 text-white fw-semibold"
+        style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', fontSize: 13 }}>
+        {s.label}
+      </a>
+    ))}
+  </div>
+
+          </div>
           </div>
 
           {/* Contact Form */}
