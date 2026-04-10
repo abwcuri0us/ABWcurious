@@ -176,6 +176,16 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
 
+        <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R031E0FJN2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-R031E0FJN2');
+</script>
+
         {/* Structured Data — Organization */}
         <script
           type="application/ld+json"
