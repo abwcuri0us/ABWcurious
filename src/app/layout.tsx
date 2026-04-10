@@ -9,7 +9,6 @@ import Chatbot from "@/components/ui/Chatbot";
 import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
-import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
