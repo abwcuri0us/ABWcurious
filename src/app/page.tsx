@@ -42,7 +42,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                Welcome to <span className="text-primary">ABW Curious Learning</span>
+                Welcome to <span className="text-primary">ABWCurious Learning</span>
               </motion.h2>
               <motion.p 
                 className="lead mb-3 text-light fw-medium"
@@ -86,7 +86,7 @@ export default function Home() {
               >
                 <Image
                   src="/images/homepage2.jpg"
-                  alt="ABW Curious Learning"
+                  alt="ABWCurious Learning"
                   fill
                   priority
                   sizes="(max-width: 768px) 100vw, 50vw"
