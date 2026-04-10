@@ -9,6 +9,7 @@ import Chatbot from "@/components/ui/Chatbot";
 import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -176,15 +177,21 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
 
-       {/* ── Google tag (gtag.js) ── */}
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-R031E0FJN2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+       {/* Google tag (gtag.js) */}
+<Script
+  src="https://www.googletagmanager.com/gtag/js?id=G-R031E0FJN2"
+  strategy="afterInteractive"
+/>
 
-  gtag('config', 'G-R031E0FJN2');
-</script>
+<Script id="google-analytics" strategy="afterInteractive">
+  {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', 'G-R031E0FJN2');
+  `}
+</Script>
 
         {/* Structured Data — Organization */}
         <script
