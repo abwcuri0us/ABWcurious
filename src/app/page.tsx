@@ -85,7 +85,7 @@ export default function Home() {
                 viewport={{ once: true }}
               >
                 <Image
-                  src="/images/homepage2.jpg"
+                  src="/images/logo.png"
                   alt="ABWCurious Learning"
                   fill
                   priority
