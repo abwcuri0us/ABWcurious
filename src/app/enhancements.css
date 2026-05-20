@@ -1,0 +1,322 @@
+/* ============================================
+   ADDITIONAL PREMIUM EFFECTS
+   ============================================ */
+
+/* Magnetic button hover effect */
+.magnetic-btn {
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.magnetic-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Section reveal animation */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-up.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Gradient border card effect */
+.gradient-border-card {
+  position: relative;
+  background: var(--glass-card-bg);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.gradient-border-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    var(--glow-color),
+    rgba(0, 102, 255, 0.15),
+    rgba(124, 58, 237, 0.1),
+    var(--glow-color)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.gradient-border-card:hover::before {
+  opacity: 1;
+}
+
+/* Shimmer text effect */
+.shimmer-text {
+  will-change: background-position;
+  background: linear-gradient(
+    110deg,
+    var(--foreground) 35%,
+    var(--primary) 50%,
+    var(--foreground) 65%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer-text 3s ease-in-out infinite;
+}
+
+@keyframes shimmer-text {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* Floating glow orbs for sections */
+/* Light mode default */
+.section-glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.08;
+  mix-blend-mode: multiply;
+}
+
+/* Dark mode override */
+.dark .section-glow-orb {
+  mix-blend-mode: screen;
+  opacity: 0.15;
+}
+
+/* Enhanced section divider with animated glow */
+.section-divider-animated {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--glow-color),
+    rgba(0, 102, 255, 0.2),
+    var(--glow-color),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer-divider 4s ease-in-out infinite;
+}
+
+@keyframes shimmer-divider {
+  0%, 100% { background-position: 200% center; }
+  50% { background-position: -200% center; }
+}
+
+/* Card shine effect on hover */
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-shine::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    transparent 40%,
+    rgba(255, 255, 255, 0.03) 45%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.03) 55%,
+    transparent 60%
+  );
+  transform: rotate(45deg) translateY(-100%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.card-shine:hover::after {
+  transform: rotate(45deg) translateY(100%);
+}
+
+/* Glow text on hover */
+.hover-glow-text {
+  transition: text-shadow 0.3s ease, color 0.3s ease;
+}
+
+.hover-glow-text:hover {
+  text-shadow: 0 0 10px var(--glow-text),
+               0 0 20px rgba(0, 240, 255, 0.1);
+}
+
+/* Animated underline on hover */
+.animated-underline {
+  position: relative;
+}
+
+.animated-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gradient-cyan-start), var(--gradient-cyan-end));
+  transition: width 0.3s ease;
+}
+
+.animated-underline:hover::after {
+  width: 100%;
+}
+
+/* 3D perspective hover for cards */
+.perspective-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.perspective-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+.dark .perspective-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4),
+              0 0 20px var(--glow-color);
+}
+
+/* Typing cursor effect */
+.typing-cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: var(--primary);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Breathing animation for avatars */
+.breathing-glow {
+  will-change: box-shadow;
+  animation: breathing-glow 3s ease-in-out infinite;
+}
+
+@keyframes breathing-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px var(--glow-color),
+                0 0 16px rgba(0, 240, 255, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 16px var(--glow-color),
+                0 0 32px var(--glow-color),
+                0 0 48px rgba(0, 240, 255, 0.05);
+  }
+}
+
+/* ============================================
+   ANIMATED AI AVATAR KEYFRAMES
+   ============================================ */
+
+@keyframes ai-avatar-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ai-avatar-breathe {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px var(--glow-color));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px var(--glow-color)) drop-shadow(0 0 16px var(--glow-color));
+  }
+}
+
+/* Stagger animation helper */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* Focus ring animation */
+.focus-ring-animated:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--background),
+              0 0 0 4px var(--primary),
+              0 0 12px var(--glow-color);
+}
+
+/* Gradient text with animation */
+.text-gradient-animated {
+  will-change: background-position;
+  background: linear-gradient(
+    90deg,
+    var(--gradient-cyan-start),
+    var(--gradient-cyan-end),
+    #7c3aed,
+    var(--gradient-cyan-start)
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* ============================================
+   LEGAL PAGE PROSE STYLES
+   ============================================ */
+
+.prose-legal p {
+  margin-bottom: 0.75rem;
+  line-height: 1.75;
+}
+
+.prose-legal ul,
+.prose-legal ol {
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+}
+
+.prose-legal ul {
+  list-style-type: disc;
+}
+
+.prose-legal ol {
+  list-style-type: decimal;
+}
+
+.prose-legal li {
+  margin-bottom: 0.375rem;
+  line-height: 1.7;
+}
+
+.prose-legal strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.prose-legal a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.prose-legal a:hover {
+  text-decoration: underline;
+}
+
+.prose-legal h4 {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
