@@ -33,8 +33,8 @@ const contactDetails = [
   {
     icon: Phone,
     label: 'Phone',
-    value: '+91 8108915402',
-    href: 'tel:+918108915402',
+    value: '+91 9930338504',
+    href: 'tel:+919930338504',
   },
   {
     icon: MapPin,
