@@ -208,9 +208,9 @@ export default function Footer() {
                 <Mail className="w-4 h-4 flex-shrink-0 text-primary/60" />
                 <span>info@abwcurious.com</span>
               </a>
-              <a href="tel:+918108915402" className="flex items-center gap-2 text-foreground/70 text-sm hover:text-primary transition-colors duration-300">
+              <a href="tel:+919930338504" className="flex items-center gap-2 text-foreground/70 text-sm hover:text-primary transition-colors duration-300">
                 <Phone className="w-4 h-4 flex-shrink-0 text-primary/60" />
-                <span>+91 8108915402</span>
+                <span>+91 9930338504</span>
               </a>
             </div>
           </div>
