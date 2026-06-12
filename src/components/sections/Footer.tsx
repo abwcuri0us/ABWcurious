@@ -202,7 +202,7 @@ export default function Footer() {
             <div className="space-y-2.5">
               <div className="flex items-center gap-2 text-foreground/70 text-sm">
                 <MapPin className="w-4 h-4 flex-shrink-0 text-primary/60" />
-                <span>Vashi, Navi Mumbai, Maharashtra, India</span>
+                <span>S-07-05, Haware's Centurion Mall,Nerul East, Sector 19A, Nerul, Navi Mumbai, Maharashtra 400706</span>
               </div>
               <a href="mailto:info@abwcurious.com" className="flex items-center gap-2 text-foreground/70 text-sm hover:text-primary transition-colors duration-300">
                 <Mail className="w-4 h-4 flex-shrink-0 text-primary/60" />
