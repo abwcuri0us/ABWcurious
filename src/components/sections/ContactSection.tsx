@@ -39,7 +39,7 @@ const contactDetails = [
   {
     icon: MapPin,
     label: 'Location',
-    value: 'Navi Mumbai, Maharashtra, India',
+    value: 'S-07-05, Haware's Centurion Mall,Nerul East, Sector 19A, Nerul, Navi Mumbai, Maharashtra 400706',
     href: undefined,
   },
 ];
