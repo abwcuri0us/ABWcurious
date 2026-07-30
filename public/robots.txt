@@ -1,0 +1,3 @@
+# DEPRECATED: This file is superseded by src/app/robots.ts which Next.js uses to generate robots.txt dynamically.
+# The crawl-delay rule has been merged into src/app/robots.ts.
+# This file is kept empty intentionally — remove it to rely solely on the dynamic route.
