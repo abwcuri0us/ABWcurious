@@ -401,13 +401,7 @@ export default function AboutPage() {
                 variants={staggerContainer}
                 className="space-y-12"
               >
-                {timelineEvents.map((event, i) => (
-                  <motion.div
-                    key={event.year}
-                    variants={fadeInUp}
-                    className={`relative flex gap-6 sm:gap-0 ${
-                      i % 2 === 0 ? "sm:flex-row" : "sm:flex-row-reverse"
-                    }`}
+                
                   >
                     {/* Content */}
                     <div
