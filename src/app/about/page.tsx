@@ -38,67 +38,6 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
 
-// ─── Timeline ─────────────────────────────────────────────────────────────────
-
-const timelineEvents = [
-  {
-    year: "2020",
-    title: "Founded with a Vision",
-    description:
-      "ABWcurious was born from a simple yet powerful idea — to shape a better world through technology. Founded by a group of passionate engineers and researchers.",
-    icon: Lightbulb,
-    color: "from-blue-500 to-cyan-500",
-  },
-  {
-    year: "2021",
-    title: "First Enterprise Clients",
-    description:
-      "Secured first enterprise cybersecurity contracts. Launched initial software development practice and built a team of 15+ specialists.",
-    icon: Building2,
-    color: "from-purple-500 to-pink-500",
-  },
-  {
-    year: "2022",
-    title: "AI & Research Division",
-    description:
-      "Established dedicated AI research division. Began publishing technical whitepapers and contributing to open-source security tools.",
-    icon: Cpu,
-    color: "from-orange-500 to-red-500",
-  },
-  {
-    year: "2023",
-    title: "Product Launches",
-    description:
-      "Launched Restaurant360 and StudySpark. Expanded to cloud security services and government recognition programs.",
-    icon: Star,
-    color: "from-green-500 to-emerald-500",
-  },
-  {
-    year: "2024",
-    title: "Global Partnerships",
-    description:
-      "Formed strategic partnerships with leading technology companies. Expanded cybersecurity practice with VAPT, SOC, and SIEM capabilities.",
-    icon: Globe,
-    color: "from-cyan-500 to-blue-600",
-  },
-  {
-    year: "2025",
-    title: "Scale & Innovation",
-    description:
-      "Launched IntelliQR and CyberIntelligence360. Grew to 50+ team members. Achieved industry certifications and government accreditations.",
-    icon: Zap,
-    color: "from-yellow-400 to-orange-500",
-  },
-  {
-    year: "2026",
-    title: "The Future Ahead",
-    description:
-      "Expanding internationally, deepening AI research, and building next-generation security and education products for the global market.",
-    icon: GraduationCap,
-    color: "from-pink-500 to-purple-600",
-  },
-];
-
 // ─── Core Values ──────────────────────────────────────────────────────────────
 
 const coreValues = [
